@@ -1,67 +1,62 @@
-# ScottsTechX-Responder
+# \U0001F47D ScottsTechX Responder
 
-🔐 Pentesting Tool | Part of ScottsTechX Tool Suite
+<p align="center">
+  <img src="https://img.shields.io/badge/MITM-Attack-00ff88?style=for-the-badge&logo=linux&logoColor=black" alt="MITM"/>
+  <img src="https://img.shields.io/badge/Credential-Theft-00ff88?style=for-the-badge&logo=shield&logoColor=black" alt="Credential Theft"/>
+  <img src="https://img.shields.io/badge/Network-Security-00ff88?style=for-the-badge&logo=wifi&logoColor=black" alt="Network Security"/>
+</p>
 
----
-
-## About
-
-**LLMNR/NBT-NS poisoner - capture hashes on networks (MITM)**
-
-Official ScottsTechX tool repo — part of the [ScottsTechX Tool Installer](https://github.com/fredscottsbulls/ScottsTechX-Tool-Installer) suite.
-
-**Official Website:** https://github.com/SpiderLabs/Responder
+> **LLMNR/NBT-NS poisoner for network credential harvesting.**
 
 ---
 
-## Quick Install
+## \u26A1 What It Does
 
-### Via ScottsTechX Tool Installer:
+Responder poisons LLMNR and NBT-NS requests on a network to capture username/password hashes \u2014 a classic lateral movement technique used in penetration testing and red team engagements.
+
+\u26A0 **For authorized security testing only. Unauthorized use is illegal.**
+
+## \U0001F680 Quick Usage
 
 ```bash
-scotts-techx install Responder
+# Run with default settings (all protocols)
+sudo python3 Responder.py -I eth0
+
+# Analyze mode (no poisoning)
+sudo python3 Responder.py -I eth0 -A
+
+# Enable specific servers
+sudo python3 Responder.py -I eth0 --NBTNS --LMHASH
+
+# Spoof WPAD
+sudo python3 Responder.py -I eth0 --wpadown
 ```
 
-### Manual Install:
+## \U0001F3AF Hash Capture
 
-```bash
-# Linux/macOS/Git Bash
-curl -fsSL https://raw.githubusercontent.com/fredscottsbulls/ScottsTechX-Responder/main/install.sh | bash
+| Protocol | Hash Type | What You Get |
+|----------|-----------|-------------|
+| HTTP | NTLMv1/v2 | Web creds |
+| SMB | NTLMv1/v2 | SMB login |
+| LDAP | NTLM | AD credentials |
+| MSSQL | NTLM | DB login |
+| SMTP | NTLM | Mail login |
 
-# Windows PowerShell
-irm https://raw.githubusercontent.com/fredscottsbulls/ScottsTechX-Responder/main/install.ps1 | iex
-```
+## \U0001F6E1 Defense
 
----
-
-## What is RESPONDER?
-
-LLMNR/NBT-NS poisoner - capture hashes on networks (MITM).
-
-For full documentation: https://github.com/SpiderLabs/Responder
-
----
-
-## ScottsTechX Tool Suite (30 tools)
-
-| Category | Tools |
-|----------|-------|
-| Simple CLI | nmap, curl, wget, jq, git, python3, ffmpeg, traceroute, netcat, openssh |
-| Pentesting | hydra, sqlmap, nikto, hashcat, gobuster, searchsploit, masscan, burpsuite, ncat, Responder |
-| DevOps | docker, vim, htop, tmux, tar, make, openssl, ansible, kubectl, terraform |
-
-**[View Full Suite](https://github.com/fredscottsbulls/ScottsTechX-Tool-Installer)**
+- **Disable LLMNR** via Group Policy
+- **Harden NBT-NS** \u2014 block port 137/138
+- **Enable SMB signing** \u2014 prevents relay attacks
+- **Network segmentation** \u2014 isolate critical systems
 
 ---
 
-## Disclaimer
+## \u26A0 Legal Notice
 
-**For authorized use only.** Unauthorized access to computer systems is illegal.
+This tool is for **authorized penetration testing** and **red team operations** only. Unauthorized interception of network traffic is illegal.
 
 ---
 
-<div align="center">
+## \U0001F837 License
 
-**ScottsTechX** | Fred Scotts | https://github.com/fredscottsbulls
-
-</div>
+MIT License \u2014 [ScottsTechX](https://github.com/fredscottsbulls) \u00a9 2026
